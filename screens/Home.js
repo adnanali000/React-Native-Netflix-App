@@ -11,8 +11,10 @@ import {
     ScrollView,
     FlatList,
 } from 'react-native';
-import {dummyData,SIZES,COLORS,icons,images } from '../constants'
+import {dummyData,SIZES,COLORS,icons,images, FONTS } from '../constants'
+import {Profiles} from '../components'
 import { EvilIcons } from '@expo/vector-icons';
+
 
 const Home = ({ navigation }) => {
 
@@ -112,6 +114,70 @@ const Home = ({ navigation }) => {
                                         borderRadius:40
                                     }}
                                 >
+                                    <View
+                                        style={{
+                                            flexDirection:'row',
+                                            height:60,
+                                            width:"100%",
+                                            paddingHorizontal:SIZES.radius,
+                                            marginBottom:SIZES.radius,
+                                        }}
+                                    >
+
+                                        {/* play now  */}
+
+                                        <View
+                                            style={{
+                                                flex:1,
+                                                flexDirection:'row',
+                                                alignItems:'center'
+                                            }}
+                                        >
+                                            <View 
+                                                style={{
+                                                    justifyContent:'center',
+                                                    alignItems:'center',
+                                                    height:40,
+                                                    width:40,
+                                                    borderRadius:20,
+                                                    backgroundColor:COLORS.transparentWhite
+
+                                                }}
+                                            >
+                                                <Image 
+                                                    source={icons.play}
+                                                    resizeMode="contain"
+                                                    style={{
+                                                        width:15,
+                                                        height:15,
+                                                        tintColor:COLORS.white
+                                                    }}
+                                                />
+
+                                            </View>
+                                            
+                                            <Text style={{marginLeft:SIZES.base,color:COLORS.white,...FONTS.h3}}>Play Now</Text>
+                                        </View>
+
+
+                                        {/* still watching  */}
+                                        {item.stillWatching.length > 0 && 
+                                            <View 
+                                                style={{
+                                                    justifyContent:'center'
+                                                }}
+                                            >
+                                                <Text style={{color:COLORS.white,...FONTS.h3,}}>Still Watching</Text>
+                                                
+                                                <Profiles 
+                                                    profiles={item.stillWatching}
+                                                />
+
+                                            </View>
+
+                                        }
+
+                                    </View>
 
                                 </ImageBackground>
 
@@ -123,6 +189,62 @@ const Home = ({ navigation }) => {
                 }}
             
             />
+        )
+    }
+
+    function renderDots(){
+
+        const dotPosition = Animated.divide(newSeasonScrollX,SIZES.width)
+
+        return(
+            <View
+                style={{
+                    marginTop:SIZES.padding,
+                    flexDirection:'row',
+                    alignItems:'center',
+                    justifyContent:'center'
+                }}
+            >
+                {dummyData.newSeason.map((item,index)=>{
+
+                    const opacity = dotPosition.interpolate({
+                        inputRange:[index-1,index,index+1],
+                        outputRange:[0.3,1,0.3],
+                        extrapolate:"clamp"
+                    })
+
+                    const dotWidth = dotPosition.interpolate({
+                        inputRange:[index-1,index,index+1],
+                        outputRange:[6,20,6],
+                        extrapolate:"clamp"
+                    })
+
+                    const dotColor = dotPosition.interpolate({
+                        inputRange:[index-1,index,index+1],
+                        outputRange:[COLORS.lightGray,COLORS.primary,COLORS.lightGray],
+                        extrapolate:"clamp"
+                    })
+
+
+
+                    return(
+                        <Animated.View
+                            key={`dot-${index}`}
+                            opacity={opacity}
+                            style={{
+                                borderRadius:SIZES.radius,
+                                marginHorizontal:3,
+                                width:dotWidth,
+                                height:6,
+                                backgroundColor:dotColor
+                            }}
+                        >
+
+                        </Animated.View>
+                    )
+                })}
+
+            </View>
         )
     }
 
@@ -141,6 +263,7 @@ const Home = ({ navigation }) => {
             }} 
           >
               {renderNewSeason()}
+              {renderDots()}
 
           </ScrollView>
 
