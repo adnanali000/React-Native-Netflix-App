@@ -2,7 +2,6 @@ import React from 'react';
 import { MovieDetail } from "./screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
-
 import Tabs from "./navigation/tabs";
 
 const Stack = createStackNavigator();

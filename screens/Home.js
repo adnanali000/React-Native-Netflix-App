@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
                 onPress={() => navigation.navigate("MovieDetail")}
             >
-                <Text>Navigate to MovieDetail</Text>
+                <Text>Go to MovieDetail</Text>
             </TouchableOpacity>
         </View>
     )
