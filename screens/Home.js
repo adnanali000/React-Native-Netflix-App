@@ -12,7 +12,7 @@ import {
     FlatList,
 } from 'react-native';
 import {dummyData,SIZES,COLORS,icons,images, FONTS } from '../constants'
-import {Profiles} from '../components'
+import {Profiles,ProgressBar} from '../components'
 import { EvilIcons } from '@expo/vector-icons';
 
 
@@ -248,6 +248,98 @@ const Home = ({ navigation }) => {
         )
     }
 
+    function renderContinueWatching(){
+        return(
+            <View
+                style={{
+                    marginTop:SIZES.padding
+                }}
+            >
+                {/* header  */}
+                <View
+                    style={{
+                        flexDirection:'row',
+                        paddingHorizontal:SIZES.padding,
+                        alignItems:'center'
+                    }}
+                >
+                    <Text style={{flex:1,color:COLORS.white,...FONTS.h2}}>Continue Watching</Text>
+
+                    <Image 
+                        source={icons.right_arrow}
+                        style={{
+                            height:20,
+                            width:20,
+                            tintColor:COLORS.primary
+                        }}
+                    />    
+                </View>
+
+
+
+                {/* movie list  */}
+
+                <FlatList 
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{
+                        marginTop:SIZES.padding
+                    }}
+                    data={dummyData.continueWatching}
+                    keyExtractor={item=>`${item.id}`}
+                    renderItem = {({item,index})=>{
+                        return(
+                            <TouchableWithoutFeedback
+                                onPress={()=>navigation.navigate('MovieDetail',{selectedMovie:item})}
+                            >
+                                <View
+                                    style={{
+                                        marginLeft: index == 0 ? SIZES.padding : 20,
+                                        marginRight: index == dummyData.continueWatching.length - 1 ? SIZES.padding : 0
+                                    }}
+                                >
+                                    {/* thumbnail  */}
+                                    <Image 
+                                        source={item.thumbnail}
+                                        resizeMode = 'cover'
+                                        style={{
+                                            width : SIZES.width / 3,
+                                            height : (SIZES.width / 3) + 60,
+                                            borderRadius : 20
+                                        }}
+                                    />
+
+
+                                    {/* name  */}
+
+                                    <Text style={{marginTop:SIZES.base,color:COLORS.white,...FONTS.h4}}>{item.name}</Text>
+
+                                    {/* progress bar  */}
+
+                                    <ProgressBar 
+                                        barStyle={{
+                                            height:3
+                                        }} 
+                                        containerStyle={{
+                                            marginTop:SIZES.radius
+                                        }}  
+                                        barPercentage={item.overallProgress}
+
+                                    />
+
+
+                                    
+                                </View>
+
+                            </TouchableWithoutFeedback>
+                        )
+                    }}
+                />
+
+            </View>
+        )
+    }
+
     return (
       <SafeAreaView
         style={{
@@ -263,7 +355,10 @@ const Home = ({ navigation }) => {
             }} 
           >
               {renderNewSeason()}
+
               {renderDots()}
+
+              {renderContinueWatching()}
 
           </ScrollView>
 
