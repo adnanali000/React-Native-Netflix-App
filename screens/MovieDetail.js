@@ -105,6 +105,37 @@ const MovieDetail = ({navigation , route}) => {
                 >
                     {renderHeaderBar()}
 
+                    <View
+                        style={{
+                            flex:1,
+                            justifyContent:'flex-end'
+                        }}
+                    >
+                     <LinearGradient
+                        start={{x:0,y:0}}
+                        end={{x:0,y:1}}
+                        colors={['transparent', '#000']}
+                        style={{
+                            width:'100%',
+                            height:150,
+                            alignItems:'center',
+                            justifyContent:'flex-end'
+                        }}
+                    >
+                        {/* season  */}
+
+                        <Text style={{color:COLORS.white,...FONTS.body4}}>{selectedMovie?.details.season}</Text>
+
+                        {/* name  */}
+
+                        <Text style={{color:COLORS.white,...FONTS.h1,marginTop:SIZES.base}}>{selectedMovie?.name}</Text>
+
+                    </LinearGradient>
+                        
+                
+
+                    </View>
+
                 </View>
             
 

@@ -38,7 +38,7 @@ export const SIZES = {
 };
 export const FONTS = {
     largeTitle: { fontFamily:'AvenirNext-Bold', fontSize: SIZES.largeTitle },
-    h1: { fontFamily: "AvenirNext-Bold'", fontSize: SIZES.h1, lineHeight: 36 },
+    h1: { fontFamily: "AvenirNext-Bold", fontSize: SIZES.h1, lineHeight: 36 },
     h2: { fontFamily: "AvenirNext-Bold", fontSize: SIZES.h2, lineHeight: 30 },
     h3: { fontFamily: "Avenir-Medium", fontSize: SIZES.h3, lineHeight: 22 },
     h4: { fontFamily: "AvenirNext-Bold", fontSize: SIZES.h4, lineHeight: 22 },
